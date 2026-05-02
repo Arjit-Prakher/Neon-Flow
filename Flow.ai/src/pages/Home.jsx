@@ -36,6 +36,34 @@ const Home = () => {
     const [edges, setEdges, onEdgesChange] = useEdgesState([]);
     const { screenToFlowPosition } = useReactFlow();
 
+    // 🔄 Auto-save with debounce
+    useEffect(() => {
+        if (nodes.length > 0) {
+            const timeout = setTimeout(() => {
+                saveCurrentFlow();
+            }, 500); // wait 500ms after changes
+            return () => clearTimeout(timeout);
+        }
+    }, [nodes, edges, messages]);
+
+    // 🔄 Restore active flow on reload
+    useEffect(() => {
+        const fetchActiveFlow = async () => {
+            if (token && activeFlowId) {
+                const res = await fetch(`http://localhost:4000/api/flows/${activeFlowId}`, {
+                    headers: { 'Authorization': `Bearer ${token}` }
+                });
+                const flow = await res.json();
+                if (res.ok) {
+                    setNodes(flow.nodes);
+                    setEdges(flow.edges);
+                    setMessages(flow.messages);
+                }
+            }
+        };
+        fetchActiveFlow();
+    }, [token, activeFlowId]);
+
 
     // 1. LOAD: Fetch all user flows when the page opens
     useEffect(() => {
@@ -141,11 +169,6 @@ const Home = () => {
         if (nodes.some(n => n.data.message !== '')) {
             await saveCurrentFlow();
         }
-        // if (nodes.some(n => console.log(n))) {
-        //     console.log("hello");
-        // }
-
-        // saveCurrentFlow();
         setNodes(initialNode);
         setEdges([]);
         setMessages([]);

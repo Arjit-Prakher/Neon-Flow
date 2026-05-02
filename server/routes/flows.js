@@ -52,6 +52,18 @@ router.get('/', auth, async (req, res) => {
     }
 });
 
+// GET single flow
+router.get('/:id', auth, async (req, res) => {
+    try {
+        const flow = await Flow.findOne({ _id: req.params.id, userId: req.user.id });
+        if (!flow) return res.status(404).json({ message: "Flow not found" });
+        res.json(flow);
+    } catch (err) {
+        res.status(500).json({ message: "Error fetching flow" });
+    }
+});
+
+
 router.delete('/:id', auth, async (req, res) => {
     try {
         const flow = await Flow.findOneAndDelete({ _id: req.params.id, userId: req.user.id });
