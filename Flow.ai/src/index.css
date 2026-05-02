@@ -1,0 +1,27 @@
+@import "tailwindcss";
+@layer base {
+  @import "@xyflow/react/dist/style.css";
+}
+
+.markdown > * {
+  all: revert;
+}
+
+/* Neon scrollbar for dark theme */
+.custom-scrollbar::-webkit-scrollbar {
+  width: 8px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-track {
+  background: #151a28; /* match canvas background */
+  border-radius: 4px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb {
+  background: linear-gradient(180deg, #ff00ff, #00ffff);
+  border-radius: 4px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(180deg, #ff66ff, #66ffff);
+}
