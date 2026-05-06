@@ -1,5 +1,5 @@
 // ```
-// PROJECT: Flow.AI
+// PROJECT: Neon Flow
 // AUTHOR: Arjit Prakher
 // MCA ROLL NO: AJU/241367
 // INSTITUTION: Arka Jain University

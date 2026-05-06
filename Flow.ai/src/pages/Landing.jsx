@@ -48,7 +48,7 @@ const Landing = () => {
 
       <div className="z-10 text-center mb-10">
         <h1 className="text-6xl font-black bg-linear-to-r from-pink-500 to-blue-500 bg-clip-text text-transparent">
-          FLOW.AI
+          NEON FLOW
         </h1>
         <p className="text-zinc-400 mt-2 text-lg">AI on Canvas</p>
       </div>
