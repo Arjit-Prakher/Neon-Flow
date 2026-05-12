@@ -1,7 +1,7 @@
 import InitialNode from '../components/nodes/InitialNode'
 import Sidebar from '../components/Sidebar'
 import FlowCanvas from '../components/FlowCanvas'
-import { addEdge, useEdgesState, useNodesState, useReactFlow } from '@xyflow/react'
+import { addEdge, MarkerType, useEdgesState, useNodesState, useReactFlow } from '@xyflow/react'
 import ChatNode from '../components/nodes/ChatNode'
 import { nanoid } from 'nanoid'
 import { useCallback, useEffect, useState } from 'react'
@@ -154,7 +154,7 @@ const Home = () => {
                         source: connectionState.fromNode.id,
                         sourceHandle: connectionState.fromHandle.id,
                         target: id,
-                        type: 'custom-edge'
+                        type: 'custom-edge',
                     })
                 );
             }

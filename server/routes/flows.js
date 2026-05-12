@@ -28,7 +28,7 @@ router.put('/:id', auth, async (req, res) => {
         const updatedFlow = await Flow.findOneAndUpdate(
             { _id: req.params.id, userId: req.user.id },
             { nodes, edges, messages, title },
-            { new: true } 
+            { returnDocument: 'after' } 
         );
 
         if (!updatedFlow) {

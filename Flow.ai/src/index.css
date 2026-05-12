@@ -25,3 +25,7 @@
 .custom-scrollbar::-webkit-scrollbar-thumb:hover {
   background: linear-gradient(180deg, #ff66ff, #66ffff);
 }
+.react-flow__handle {
+  height: 20px;
+  width: 20px;
+}

@@ -106,7 +106,7 @@ const InitialNode = ({ id, data }) => {
                             e.stopPropagation();
                             setExpanded(!expanded);
                         }}
-                        className="mt-2 text-xs text-sky-400 hover:underline"
+                        className="mt-2 text-xs text-sky-400 hover:underline cursor-pointer"
                     >
                         {expanded ? "Collapse" : "Show more"}
                     </button>

@@ -99,7 +99,7 @@ const ChatNode = ({ id, data }) => {
                 {response && response.length > 200 && (
                     <button
                         onClick={() => setExpanded(!expanded)}
-                        className="mt-2 text-sm text-pink-400 hover:underline"
+                        className="mt-2 text-sm text-pink-400 hover:underline cursor-pointer"
                     >
                         {expanded ? "Collapse" : "Show more"}
                     </button>

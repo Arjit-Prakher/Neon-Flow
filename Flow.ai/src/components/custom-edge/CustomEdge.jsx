@@ -13,7 +13,12 @@ const CustomEdge = ({ id, sourceX, sourceY, targetX, targetY, sourcePosition, ta
     })
     return (
         <>
-            <BaseEdge id={id} path={edgePath} markerEnd={markerEnd} style={style} />
+            <BaseEdge id={id} path={edgePath} markerEnd={markerEnd} style={{
+                stroke: "url(#edge)",
+                strokeWidth: 4,
+                strokeLinecap: 'round'
+            }} />
+
         </>
     )
 }// This work belongs to Arjit Prakher

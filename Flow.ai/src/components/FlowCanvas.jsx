@@ -19,6 +19,12 @@ const FlowCanvas = ({ nodes, edges, nodeTypes, edgeTypes, onNodesChange, onEdges
         <Background />
         <Controls position="top-right" />
         <MiniMap bgColor="#151a28" pannable zoomable/>
+        <svg>
+          <linearGradient id="edge">
+            <stop offset="0%" stopColor="#b71f6e" />
+            <stop offset="100%" stopColor="#394ad7" />
+          </linearGradient>
+        </svg>
       </ReactFlow>
   )
 }
