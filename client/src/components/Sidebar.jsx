@@ -35,6 +35,7 @@ const Sidebar = ({ onNewFlow, history, setHistory, setNodes, setEdges, activeFlo
                     setEdges([]);
                     setMessages([]);
                     setActiveFlowId(null);
+                    // onNewFlow();
                 }
             }
         } catch (err) {

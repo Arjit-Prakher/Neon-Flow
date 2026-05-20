@@ -79,7 +79,7 @@ cd server
 npm install
 
 # Install frontend dependencies
-cd ../Neon Flow
+cd ../client
 npm install
 ```
 
@@ -89,8 +89,8 @@ npm install
 cd server
 npm run dev
 
-# Start Frontend
-cd Flow.ai
+# Start Frontend. Make sure you are at the root.
+cd client
 npm run dev
 ```
 Open `http://localhost:5173` to experience Neon Flow.
@@ -99,10 +99,10 @@ Open `http://localhost:5173` to experience Neon Flow.
 
 ## Images
 Landing Page
-![LandingPage View](./images/LandingPage.png "Landing Page")
+![LandingPage View](./images/Neon-flow-landing.png "Landing Page")
 
 Workspace
-![Workspace View](./images/Workspace.png "WorkSpace")
+![Workspace View](./images/Neon-flow-workspace.png "WorkSpace")
 
 **#stopscrollingstartflowing.**
 

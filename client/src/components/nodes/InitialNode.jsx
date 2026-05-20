@@ -15,12 +15,11 @@ const InitialNode = ({ id, data }) => {
 
 
     const user = localStorage.getItem('user').split('@')[0];
-    // console.log(user);
-    // let username = email.split('@')[0]; 
 
     useEffect(() => {
         setMessage(data?.message || '');
         setResponse(data?.response || '');
+        setTitle(data?.title || '');
     }, [data, id]);
 
     const onChange = (event) => setMessage(event.target.value);
@@ -39,7 +38,7 @@ const InitialNode = ({ id, data }) => {
             setNodes((nds) =>
                 nds.map((node) =>
                     node.id === id
-                        ? { ...node, data: { ...node.data, message, response: aiReply } }
+                        ? { ...node, data: { ...node.data, title: aiTitle, message, response: aiReply } }
                         : node
                 )
             );

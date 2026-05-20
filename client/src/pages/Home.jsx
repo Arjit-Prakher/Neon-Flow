@@ -35,7 +35,7 @@ const Home = () => {
     const [nodes, setNodes, onNodesChange] = useNodesState(initialNode);
     const [edges, setEdges, onEdgesChange] = useEdgesState([]);
     const { screenToFlowPosition } = useReactFlow();
-
+    console.log(nodes);
     useEffect(() => {
         if (nodes.length > 0) {
             const timeout = setTimeout(() => {
@@ -88,7 +88,7 @@ const Home = () => {
         if (!hasChatNode) return;
 
         const flowData = {
-            title: nodes[0]?.data?.message?.substring(0, 20) || "New Flow",
+            title: nodes[0]?.data?.title?.substring(0, 20) || "New Flow",
             nodes,
             edges,
             messages
@@ -167,6 +167,11 @@ const Home = () => {
 
         // console.log(nodes);
         if (!nodes.data) {
+            // console.log("yahi se return ho raha hai");
+            setNodes(initialNode);
+            setEdges([]);
+            setMessages([]);
+            setActiveFlowId(null);
             return;
         }
         if (nodes.some(n => n.data.message !== '')) {
@@ -194,7 +199,7 @@ const Home = () => {
             </div>
             <div className='canvas-ground h-screen w-screen bg-[#151a28]'>
                 <FlowCanvas
-                    key={activeFlowId || 'new'}
+                    // key={activeFlowId || 'new'}
                     nodes={nodes}
                     edges={edges}
                     nodeTypes={nodeTypes}
