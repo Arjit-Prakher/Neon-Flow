@@ -108,7 +108,6 @@ Workspace
 ---
 ## Conclusion
 Neon Flow is more than a tool; it is a shift in how we interact with artificial intelligence. By removing the constraints of the vertical scroll and embracing the infinite canvas, we have created an environment that mirrors the way the human brain actually works—messy, branching, and visual. 
-Neon Flow is more than a tool; it is a shift in how we interact with artificial intelligence. By removing the constraints of the vertical scroll and embracing the infinite canvas, we have created an environment that mirrors the way the human brain actually works—messy, branching, and visual. 
 
 **Neon Flow: Stop scrolling. Start flowing.**
 
