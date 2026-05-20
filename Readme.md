@@ -6,7 +6,6 @@
 
 ## Product Overview
 **Neon Flow** is a state-of-the-art AI productivity platform that replaces the traditional "message bubble" interface with an **infinite, node-based canvas**. By treating conversations as visual flows rather than vertical lists, Neon Flow allows users to map out complex ideas, branch into new topics without losing context, and manage multi-layered AI interactions in a single visual space.
-**Neon Flow** is a state-of-the-art AI productivity platform that replaces the traditional "message bubble" interface with an **infinite, node-based canvas**. By treating conversations as visual flows rather than vertical lists, Neon Flow allows users to map out complex ideas, branch into new topics without losing context, and manage multi-layered AI interactions in a single visual space.
 
 Built for researchers, developers, and creative thinkers, it provides a high-performance environment where every AI response is a "node" that can be connected, moved, and saved as part of a larger mental map.
 
