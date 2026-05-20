@@ -40,7 +40,7 @@ const Home = () => {
         if (nodes.length > 0) {
             const timeout = setTimeout(() => {
                 saveCurrentFlow();
-            }, 500); 
+            }, 500);
             return () => clearTimeout(timeout);
         }
     }, [nodes, edges, messages]);
@@ -84,6 +84,7 @@ const Home = () => {
         // if (nodes.length <= 1 && !nodes[0]?.data?.message) return;
 
         const hasChatNode = nodes.some(node => node.type === 'chat');
+        // console.log(hasChatNode);
         if (!hasChatNode) return;
 
         const flowData = {
@@ -164,6 +165,10 @@ const Home = () => {
 
     const handleNewFlow = async () => {
 
+        // console.log(nodes);
+        if (!nodes.data) {
+            return;
+        }
         if (nodes.some(n => n.data.message !== '')) {
             await saveCurrentFlow();
         }
@@ -184,6 +189,7 @@ const Home = () => {
                     activeFlowId={activeFlowId}
                     setActiveFlowId={setActiveFlowId}
                     setMessages={setMessages} // Allow sidebar to load old messages
+                    initialNode={initialNode}
                 />
             </div>
             <div className='canvas-ground h-screen w-screen bg-[#151a28]'>

@@ -84,18 +84,9 @@ const InitialNode = ({ id, data }) => {
             </div>
 
             <div className='nowheel responses mt-4'>
-                {/* <p className="markdown border px-4 py-2 rounded-2xl">
-                    <ReactMarkdown>
-                        {response || "Responses will appear here..."}
-                    </ReactMarkdown>
-                </p> */}
                 <div
                     className={`markdown border px-4 py-2 rounded-2xl ${expanded ? "max-h-80 overflow-y-auto" : "max-h-40 overflow-hidden"
-                        } custom-scrollbar`}
-                    onWheel={(e) => e.stopPropagation()} // prevent canvas zoom
-                    onMouseDown={(e) => e.stopPropagation()} // prevent drag
-                    onPointerDown={(e) => e.stopPropagation()}
-                >
+                        } custom-scrollbar`}>
                     <ReactMarkdown>
                         {response || "Responses will appear here..."}
                     </ReactMarkdown>
@@ -111,10 +102,7 @@ const InitialNode = ({ id, data }) => {
                         {expanded ? "Collapse" : "Show more"}
                     </button>
                 )}
-
             </div>
-
-
         </div>
     )
 }

@@ -1,20 +1,3 @@
-// import { ReactFlowProvider } from "@xyflow/react";
-// import Home from './pages/Home'
-// // import { ChatProvider } from "./hooks/ChatProvider";
-
-// const App = () => {
-//   return (
-//     <ReactFlowProvider>
-//         <Home />
-
-//     </ReactFlowProvider>
-
-
-//   )
-// }
-
-// export default App
-
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import { AuthProvider, useAuth } from './context/AuthContext';
 import Landing from './pages/Landing';

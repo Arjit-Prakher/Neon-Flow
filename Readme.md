@@ -4,7 +4,7 @@
 
 ---
 
-## ## Product Overview
+## Product Overview
 **Neon Flow** is a state-of-the-art AI productivity platform that replaces the traditional "message bubble" interface with an **infinite, node-based canvas**. By treating conversations as visual flows rather than vertical lists, Neon Flow allows users to map out complex ideas, branch into new topics without losing context, and manage multi-layered AI interactions in a single visual space.
 **Neon Flow** is a state-of-the-art AI productivity platform that replaces the traditional "message bubble" interface with an **infinite, node-based canvas**. By treating conversations as visual flows rather than vertical lists, Neon Flow allows users to map out complex ideas, branch into new topics without losing context, and manage multi-layered AI interactions in a single visual space.
 
@@ -12,7 +12,7 @@ Built for researchers, developers, and creative thinkers, it provides a high-per
 
 ---
 
-## ## The Problem: The "Vertical Scroll" Fatigue
+## The Problem: The "Vertical Scroll" Fatigue
 Traditional AI interfaces (ChatGPT, Claude, etc.) suffer from **Linear Limitation**. As a conversation grows, several problems emerge:
 *   **Scrolling Fatigue**: Crucial information becomes buried under 50+ messages, requiring constant scrolling to find context.
 *   **Context Loss**: When a user wants to ask a "what if" question about a previous point, they have to break the current flow or start a new chat entirely.
@@ -27,7 +27,7 @@ Neon Flow solves this by introducing **Spatial Context**. Instead of scrolling, 
 
 ---
 
-## ## The Innovation: What’s New?
+## The Innovation: What’s New?
 Unlike standard AI clones, Neon Flow introduces the **Node-Logic AI Architecture**:
 Unlike standard AI clones, Neon Flow introduces the **Node-Logic AI Architecture**:
 1.  **Non-Linear Interaction**: You can connect a response from 20 minutes ago to a new prompt today.
@@ -36,7 +36,7 @@ Unlike standard AI clones, Neon Flow introduces the **Node-Logic AI Architecture
 
 ---
 
-## ## Tech Stack
+## Tech Stack
 *   **Frontend**: React.js with **React Flow** for the infinite canvas engine.
 *   **Styling**: Tailwind CSS for a high-performance, dark-mode "Neon" aesthetic.
 *   **Backend**: Node.js & Express.js.
@@ -47,7 +47,7 @@ Unlike standard AI clones, Neon Flow introduces the **Node-Logic AI Architecture
 
 ---
 
-## ## Running the Product
+## Running the Product
 
 ### **1. Prerequisites**
 *   Node.js (v18+)
@@ -97,7 +97,7 @@ Open `http://localhost:5173` to experience Neon Flow.
 
 ---
 
-## ## Images
+## Images
 Landing Page
 ![LandingPage View](./images/LandingPage.png "Landing Page")
 
@@ -107,7 +107,7 @@ Workspace
 **#stopscrollingstartflowing.**
 
 ---
-## ## Conclusion
+## Conclusion
 Neon Flow is more than a tool; it is a shift in how we interact with artificial intelligence. By removing the constraints of the vertical scroll and embracing the infinite canvas, we have created an environment that mirrors the way the human brain actually works—messy, branching, and visual. 
 Neon Flow is more than a tool; it is a shift in how we interact with artificial intelligence. By removing the constraints of the vertical scroll and embracing the infinite canvas, we have created an environment that mirrors the way the human brain actually works—messy, branching, and visual. 
 

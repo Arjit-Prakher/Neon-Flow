@@ -1,12 +1,10 @@
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
 
-const Sidebar = ({ onNewFlow, history, setHistory, setNodes, setEdges, activeFlowId, setActiveFlowId, setMessages }) => {
+const Sidebar = ({ onNewFlow, history, setHistory, setNodes, setEdges, activeFlowId, setActiveFlowId, setMessages, initialNode }) => {
 
-    const { logout } = useAuth();
+    const { logout, token } = useAuth();
     const user = localStorage.getItem('user');
-    // console.log(user);
-    const { token } = useAuth();
     const navigate = useNavigate();
 
     const handleLogout = () => {
@@ -31,7 +29,13 @@ const Sidebar = ({ onNewFlow, history, setHistory, setNodes, setEdges, activeFlo
             });
             if (res.ok) {
                 setHistory(prev => prev.filter(f => f._id !== flowId));
-                if (activeFlowId === flowId) onNewFlow();
+                // if (activeFlowId === flowId) onNewFlow();
+                if (activeFlowId === flowId) {
+                    setNodes(initialNode);
+                    setEdges([]);
+                    setMessages([]);
+                    setActiveFlowId(null);
+                }
             }
         } catch (err) {
             console.error("Delete failed", err);
@@ -63,7 +67,7 @@ const Sidebar = ({ onNewFlow, history, setHistory, setNodes, setEdges, activeFlo
                 });
                 if (verifyRes.ok) alert("Welcome to Pro!");
             },
-            theme: { color: "#db2777" } 
+            theme: { color: "#db2777" }
         };
         const rzp = new window.Razorpay(options);
         rzp.open();
