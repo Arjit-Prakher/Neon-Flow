@@ -43,36 +43,36 @@ const Sidebar = ({ onNewFlow, history, setHistory, setNodes, setEdges, activeFlo
         }
     };
 
-    const handlePayment = async () => {
-        const res = await fetch('http://localhost:4000/api/payment/create-order', {
-            method: 'POST',
-            headers: { 'Authorization': `Bearer ${token}` }
-        });
-        const order = await res.json();
+    // const handlePayment = async () => {
+    //     const res = await fetch('http://localhost:4000/api/payment/create-order', {
+    //         method: 'POST',
+    //         headers: { 'Authorization': `Bearer ${token}` }
+    //     });
+    //     const order = await res.json();
 
-        const options = {
-            key: import.meta.env.VITE_RAZORPAY_KEY_ID,
-            amount: order.amount,
-            currency: order.currency,
-            name: "Neon Flow Pro",
-            order_id: order.id,
-            handler: async (response) => {
-                // 3. Verify on backend
-                const verifyRes = await fetch('http://localhost:4000/api/payment/verify', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                        'Authorization': `Bearer ${token}`
-                    },
-                    body: JSON.stringify(response)
-                });
-                if (verifyRes.ok) alert("Welcome to Pro!");
-            },
-            theme: { color: "#db2777" }
-        };
-        const rzp = new window.Razorpay(options);
-        rzp.open();
-    };
+    //     const options = {
+    //         key: import.meta.env.VITE_RAZORPAY_KEY_ID,
+    //         amount: order.amount,
+    //         currency: order.currency,
+    //         name: "Neon Flow Pro",
+    //         order_id: order.id,
+    //         handler: async (response) => {
+    //             // 3. Verify on backend
+    //             const verifyRes = await fetch('http://localhost:4000/api/payment/verify', {
+    //                 method: 'POST',
+    //                 headers: {
+    //                     'Content-Type': 'application/json',
+    //                     'Authorization': `Bearer ${token}`
+    //                 },
+    //                 body: JSON.stringify(response)
+    //             });
+    //             if (verifyRes.ok) alert("Welcome to Pro!");
+    //         },
+    //         theme: { color: "#db2777" }
+    //     };
+    //     const rzp = new window.Razorpay(options);
+    //     rzp.open();
+    // };
     return (
 
 
@@ -128,11 +128,11 @@ const Sidebar = ({ onNewFlow, history, setHistory, setNodes, setEdges, activeFlo
                 </div>
             </div>
 
-            <button
+            {/* <button
                 onClick={handlePayment}
                 className="relative group overflow-hidden px-4 py-3 rounded-xl bg-zinc-900 border border-zinc-800 transition-all duration-300 hover:border-blue-500/50"
             >
-                {/* Animated Background Glow */}
+                
                 <div className="absolute inset-0 bg-linear-to-r from-pink-600/20 to-blue-600/20 opacity-0 group-hover:opacity-100 transition-opacity" />
 
                 <div className="relative flex items-center justify-between">
@@ -147,17 +147,17 @@ const Sidebar = ({ onNewFlow, history, setHistory, setNodes, setEdges, activeFlo
                     </div>
                     <span className="text-zinc-500 group-hover:text-white transition-colors">→</span>
                 </div>
-            </button>
+            </button> */}
 
             {/* Bottom Section: Accounts */}
             <div className="p-4 border-t border-zinc-800 bg-zinc-900/30">
                 <div className="flex items-center gap-3 mb-4 p-2">
                     <div className="w-10 h-10 rounded-full bg-linear-to-br from-pink-500 to-blue-500 flex items-center justify-center font-bold">
-
+                        {user[0]}
                     </div>
                     <div className="overflow-hidden">
                         <p className="text-sm font-bold truncate">{user}</p>
-                        <p className="text-[10px] text-pink-500 font-mono">FLOW_PRO</p>
+                        {/* <p className="text-[10px] text-pink-500 font-mono">FLOW_PRO</p> */}
                     </div>
                 </div>
                 <button

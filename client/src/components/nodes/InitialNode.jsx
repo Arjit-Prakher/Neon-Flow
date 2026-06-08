@@ -1,7 +1,11 @@
 import { Handle, Position, useReactFlow } from "@xyflow/react";
 import { useEffect, useState } from "react";
-import { generateFlowTitle, generateResponse } from "../../utils/llm";
+import { generateResponse } from "../../utils/api";
 import ReactMarkdown from "react-markdown";
+
+import remarkMath from 'remark-math';
+import rehypeKatex from 'rehype-katex';
+import 'katex/dist/katex.min.css';
 
 
 const InitialNode = ({ id, data }) => {
@@ -29,10 +33,12 @@ const InitialNode = ({ id, data }) => {
         event.preventDefault();
         setLoading(true);
         try {
-            const aiReply = await generateResponse(message); // No history needed for first node
-            const aiTitle = await generateFlowTitle(message);
+            // Only request a title when one doesn't already exist for this node
+            const result = title ? await generateResponse(message, [], {}) : await generateResponse(message, [], { withTitle: true }); // single request for reply+title
+            const aiReply = result.text || result;
+            const aiTitle = result.title || title;
             setResponse(aiReply);
-            setTitle(aiTitle);
+            setTitle(aiTitle || 'New Visual Graph');
 
             // 4. SAVE TO GRAPH so children can crawl this node
             setNodes((nds) =>
@@ -86,7 +92,10 @@ const InitialNode = ({ id, data }) => {
                 <div
                     className={`markdown border px-4 py-2 rounded-2xl ${expanded ? "max-h-80 overflow-y-auto" : "max-h-40 overflow-hidden"
                         } custom-scrollbar`}>
-                    <ReactMarkdown>
+                    <ReactMarkdown
+                        remarkPlugins={[remarkMath]}
+                        rehypePlugins={[rehypeKatex]}
+                    >
                         {response || "Responses will appear here..."}
                     </ReactMarkdown>
                 </div>

@@ -1,8 +1,11 @@
 import { Handle, Position, useEdges, useReactFlow } from "@xyflow/react";
 import { nanoid } from "nanoid";
 import { useEffect, useState } from "react";
-import { generateResponse } from "../../utils/llm";
+import { generateResponse } from "../../utils/api";
 import ReactMarkdown from 'react-markdown';
+import remarkMath from 'remark-math';
+import rehypeKatex from 'rehype-katex';
+import 'katex/dist/katex.min.css';
 
 const ChatNode = ({ id, data }) => {
 
@@ -32,7 +35,7 @@ const ChatNode = ({ id, data }) => {
             dynamicSourceLeft = Position.Left;
 
         } else if (sourceHandle === 'source-left') {
-            
+
             dynamicTargetPosition = Position.Right;
             dynamicSourceTop = Position.Top;
             dynamicSourceRight = Position.Left;
@@ -46,7 +49,7 @@ const ChatNode = ({ id, data }) => {
             dynamicSourceBottom = Position.Bottom;
 
         } else if (sourceHandle === 'source-top') {
-            
+
             dynamicTargetPosition = Position.Bottom;
             dynamicSourceTop = Position.Top;
             dynamicSourceRight = Position.Right;
@@ -135,7 +138,10 @@ const ChatNode = ({ id, data }) => {
 
             <div className='nowheel responses mt-4'>
                 <div className={`markdown border px-4 py-2 rounded-2xl ${expanded ? 'max-h-80 overflow-y-auto' : 'max-h-40 overflow-hidden'} custom-scrollbar`}>
-                    <ReactMarkdown>
+                    <ReactMarkdown
+                        remarkPlugins={[remarkMath]}
+                        rehypePlugins={[rehypeKatex]}
+                    >
                         {loading ? "Loading..." : response || "Responses will appear here..."}
                     </ReactMarkdown>
                 </div>

@@ -40,8 +40,7 @@ Unlike standard AI clones, Neon Flow introduces the **Node-Logic AI Architecture
 *   **Styling**: Tailwind CSS for a high-performance, dark-mode "Neon" aesthetic.
 *   **Backend**: Node.js & Express.js.
 *   **Database**: MongoDB (NoSQL) for flexible storage of complex node/edge relationships.
-*   **AI Engine**: Groq SDK (Llama-3 8B/70B models).
-*   **Payments**: Razorpay API for seamless Pro-tier upgrades.
+*   **AI Engine**: Gemini-3-Flash-Preview.
 *   **Security**: JWT (JSON Web Tokens) for session-based authentication.
 
 ---
@@ -51,25 +50,17 @@ Unlike standard AI clones, Neon Flow introduces the **Node-Logic AI Architecture
 ### **1. Prerequisites**
 *   Node.js (v18+)
 *   MongoDB Atlas Account
-*   Groq API Key
-*   Razorpay API Key
+*   Gemini API Key
 
 ### **2. Environment Configuration (Folder: server)**
 Create a `.env` file in the root directory:
 ```text
+GEMINI_API_KEY=Your-api-key
 PORT=4000
-MONGODB_URI=your_mongodb_connection_string
-JWT_SECRET=your_jwt_secret
-GROQ_API_KEY=your_groq_key
-RAZORPAY_KEY_ID=your_key_id
-RAZORPAY_KEY_SECRET=your_key_secret
+MONGODB_URI=mongo-db-uri
+JWT_SECRET=a_long_random_string_for_security
 ```
 
-### **3. Environment Configuration (Folder: Neon Flow)**
-Create a `.env` file in the root of Neon Flow:
-```text
-VITE_RAZORPAY_KEY_ID=your_razor_pay_key_id
-```
 
 ### **3. Installation**
 ```bash
@@ -113,5 +104,6 @@ Neon Flow is more than a tool; it is a shift in how we interact with artificial 
 
 ---
 
+*Launching soon*
 ## Author
 This is the work of *Arjit Prakher*, a student of **Master's of Computer Application**
