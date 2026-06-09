@@ -19,7 +19,7 @@ Traditional AI interfaces (ChatGPT, Claude, etc.) suffer from **Linear Limitatio
 
 ### **The Solution: Spatial Conversation**
 Neon Flow solves this by introducing **Spatial Context**. Instead of scrolling, you **pan**. Instead of starting over, you **branch**. 
-Neon Flow solves this by introducing **Spatial Context**. Instead of scrolling, you **pan**. Instead of starting over, you **branch**. 
+
 *   **Branching Conversations**: Create multiple "Chat Nodes" from a single prompt to explore different outcomes simultaneously.
 *   **Visual Persistence**: Keep important definitions or code blocks visible on one side of the canvas while you continue the conversation on the other.
 *   **Infinite Workspaces**: Each "Flow" is a persistent document saved in the cloud, ready to be picked up exactly where you left it.
@@ -28,7 +28,7 @@ Neon Flow solves this by introducing **Spatial Context**. Instead of scrolling, 
 
 ## The Innovation: What’s New?
 Unlike standard AI clones, Neon Flow introduces the **Node-Logic AI Architecture**:
-Unlike standard AI clones, Neon Flow introduces the **Node-Logic AI Architecture**:
+
 1.  **Non-Linear Interaction**: You can connect a response from 20 minutes ago to a new prompt today.
 2.  **Tiered AI Intelligence**: Integrated with the **Groq Llama-3 70B** model for Pro users, providing near-instantaneous inference speeds that make the canvas feel like a living extension of your thoughts.
 3.  **Visual State Management**: The system doesn't just save text; it saves the **spatial coordinates** of your ideas.

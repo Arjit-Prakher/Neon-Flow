@@ -3,6 +3,7 @@ import { AuthProvider, useAuth } from './context/AuthContext';
 import Landing from './pages/Landing';
 import Home from './pages/Home';
 import { ReactFlowProvider } from '@xyflow/react';
+import NeonFlow from './pages/NeonFlow';
 
 const ProtectedRoute = ({ children }) => {
   const { token } = useAuth();
@@ -14,7 +15,8 @@ const App = () => {
     <AuthProvider>
       <Router>
         <Routes>
-          <Route path="/" element={<Landing />} />
+          <Route path="/" element={<NeonFlow />} />
+          <Route path='/auth' element={<Landing />}/>
           <Route
             path="/app"
             element={
