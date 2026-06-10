@@ -15,6 +15,11 @@ const Header = () => {
                     className="px-4 py-2 rounded-lg bg-linear-to-r from-pink-500 to-blue-500 text-white font-semibold hover:scale-105 transition">
                     Get Started
                 </button>
+                <button
+                    onClick={() => navigate('/auth')}
+                    className="px-4 py-2 rounded-lg border border-pink-400 text-pink-300 hover:bg-pink-500/20 transition">
+                    Sign In
+                </button>
             </nav>
         </header>
     )

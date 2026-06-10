@@ -7,6 +7,7 @@ import remarkMath from 'remark-math';
 import rehypeKatex from 'rehype-katex';
 import 'katex/dist/katex.min.css';
 
+
 const ChatNode = ({ id, data }) => {
 
     const { getNodes, getEdges, setNodes } = useReactFlow();

@@ -1,31 +1,3 @@
-// import React from 'react'
-
-// const Body = () => {
-//   return (
-//     <main className="flex flex-col items-center justify-center grow text-center px-6">
-//       <h2 className="text-5xl font-extrabold bg-linear-to-r from-pink-400 to-blue-400 bg-clip-text text-transparent mb-6">
-//         AI on Canvas
-//       </h2>
-//       <p className="text-lg text-gray-300 max-w-2xl mb-10">
-//         Break free from the linear scroll of traditional chatbots. 
-//         Neon Flow transforms AI conversations into a visual map, 
-//         solving context loss and fatigue by allowing you to branch ideas 
-//         and visualize thoughts on an infinite node-based canvas.
-//       </p>
-//       <div className="flex gap-6">
-//         <button className="px-6 py-3 rounded-xl bg-linear-to-r from-pink-500 to-blue-500 text-white font-semibold hover:scale-105 transition">
-//           Get Started
-//         </button>
-//         <button className="px-6 py-3 rounded-xl border border-pink-400 text-pink-300 hover:bg-pink-500/20 transition">
-//           Sign In
-//         </button>
-//       </div>
-//     </main>
-//   )
-// }
-
-// export default Body
-
 import React from 'react'
 import workspaceImg from '../assets/workspaceImg.png' // add your workspace screenshot here
 
@@ -33,14 +5,17 @@ const Body = () => {
   return (
     <main className="flex flex-col items-center justify-center grow text-center px-6">
       {/* Hero Section */}
-      <h2 className="text-5xl font-extrabold bg-linear-to-r from-pink-400 to-blue-400 bg-clip-text text-transparent mb-6">
+      <h2 className="mt-10 text-5xl font-extrabold bg-linear-to-r from-pink-400 to-blue-400 bg-clip-text text-transparent mb-6">
         AI on Canvas
       </h2>
-      <p className="text-lg text-gray-300 max-w-2xl mb-16">
+      <p className="text-lg text-gray-300 max-w-2xl mb-10">
         Break free from the linear scroll of traditional chatbots. 
         Neon Flow introduces <span className="font-semibold text-pink-300">Spatial Intelligence</span>, 
         allowing you to branch ideas, explore “what‑ifs,” and visualize thoughts 
         on an infinite node‑based canvas.
+      </p>
+      <p className='mb-3 font-extrabold bg-linear-to-r from-pink-400 to-blue-400 bg-clip-text text-transparent'>
+        #stopscrollingstartflowing
       </p>
 
       {/* Workspace Preview */}

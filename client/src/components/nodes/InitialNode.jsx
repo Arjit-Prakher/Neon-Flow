@@ -1,11 +1,10 @@
 import { Handle, Position, useReactFlow } from "@xyflow/react";
 import { useEffect, useState } from "react";
-import { generateResponse } from "../../utils/api";
+import { generateResponse, generateFlowTitle } from "../../utils/api";
 import ReactMarkdown from "react-markdown";
 
 import remarkMath from 'remark-math';
 import rehypeKatex from 'rehype-katex';
-import 'katex/dist/katex.min.css';
 
 
 const InitialNode = ({ id, data }) => {
@@ -33,20 +32,43 @@ const InitialNode = ({ id, data }) => {
         event.preventDefault();
         setLoading(true);
         try {
-            // Only request a title when one doesn't already exist for this node
-            const result = title ? await generateResponse(message, [], {}) : await generateResponse(message, [], { withTitle: true }); // single request for reply+title
-            const aiReply = result.text || result;
-            const aiTitle = result.title || title;
+            let aiTitle = title;
+            // if (!aiTitle) {
+            //     aiTitle = await generateFlowTitle(message);
+            // }
+            // const aiReply = await generateResponse(message, [], {});
+            const [fetchedTitle, aiReply] = await Promise.all([
+                !aiTitle ? generateFlowTitle(message) : Promise.resolve(aiTitle),
+                generateResponse(message, [], {})
+            ]);
+            aiTitle = fetchedTitle;
+            // setTitle(aiTitle || 'New Visual Graph');
+            setTitle(aiTitle);
             setResponse(aiReply);
-            setTitle(aiTitle || 'New Visual Graph');
 
             // 4. SAVE TO GRAPH so children can crawl this node
+            // setNodes((nds) =>
+            //     nds.map((node) =>
+            //         node.id === id
+            //             ? { ...node, data: { ...node.data, title: aiTitle, message, response: aiReply } }
+            //             : node
+            //     )
+            // );
             setNodes((nds) =>
-                nds.map((node) =>
-                    node.id === id
-                        ? { ...node, data: { ...node.data, title: aiTitle, message, response: aiReply } }
-                        : node
-                )
+                nds.map((node) => {
+                    if (node.id === id) {
+                        return {
+                            ...node,
+                            data: {
+                                ...node.data,
+                                message,
+                                response: aiReply,
+                                title: aiTitle,
+                            },
+                        };
+                    }
+                    return node;
+                })
             );
         } catch (err) {
             setResponse("Error starting flow.");
@@ -61,7 +83,7 @@ const InitialNode = ({ id, data }) => {
             <Handle type="source" position={Position.Bottom} id="source-bottom" />
 
             <div className='greetings mt-4'>
-                <h1 className='text-5xl bg-linear-to-r from-pink-500 to-blue-500 bg-clip-text text-transparent font-extrabold'>Hi, {user}!</h1>
+                <h1 className='text-5xl bg-linear-to-r from-pink-500 to-blue-500 bg-clip-text text-transparent font-extrabold'>Hi, {user.charAt(0).toUpperCase() + user.slice(1)}!</h1>
                 <h3 className="markdown text-xl mt-3">
                     <ReactMarkdown>
 
@@ -96,7 +118,7 @@ const InitialNode = ({ id, data }) => {
                         remarkPlugins={[remarkMath]}
                         rehypePlugins={[rehypeKatex]}
                     >
-                        {response || "Responses will appear here..."}
+                        {loading ? "Loading..." : response || "Responses will appear here..."}
                     </ReactMarkdown>
                 </div>
                 {response && response.length > 200 && (

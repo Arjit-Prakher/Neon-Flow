@@ -1,24 +1,37 @@
-export async function generateResponse(prompt, history = [], options = {}) { // 1. Accept history
+export async function generateResponse(prompt, history = [], options = {}) {
     try {
         const res = await fetch("http://localhost:4000/api/generate", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
-            // 2. Send both to the server
             body: JSON.stringify({ prompt, history, options }),
         });
+
         const data = await res.json();
-        // Backwards compatibility: return plain text when caller didn't request a title
-        if (options && options.withTitle) return data; 
-        return data.text ?? data;
+
+        // Safety Filter: Catch non-200 statuses and return plain text instead of raw objects
+        if (!res.ok) {
+            return data.error || "An error occurred while generating a response.";
+        }
+
+        if (options && options.withTitle) return data;
+        return data.text ?? "No response generated.";
     } catch (error) {
         console.error("Frontend LLM Error:", error);
-        return { text: "Sorry, something went wrong.", title: undefined };
+        return "Sorry, something went wrong connecting to the workspace engine.";
     }
 }
 
-
 export async function generateFlowTitle(query) {
-    // Request a title-only generation to keep compatibility with callers.
-    const result = await generateResponse(query, [], { withTitle: true });
-    return result.title || "New Visual Graph";
+    try {
+        const res = await fetch("http://localhost:4000/api/title", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ query }),
+        });
+        const data = await res.json();
+        return data.title || "New Visual Graph";
+    } catch (error) {
+        console.error("Frontend Title Error:", error);
+        return "New Visual Graph";
+    }
 }

@@ -1,6 +1,6 @@
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import { AuthProvider, useAuth } from './context/AuthContext';
-import Landing from './pages/Landing';
+import Auth from './pages/Auth';
 import Home from './pages/Home';
 import { ReactFlowProvider } from '@xyflow/react';
 import NeonFlow from './pages/NeonFlow';
@@ -16,7 +16,7 @@ const App = () => {
       <Router>
         <Routes>
           <Route path="/" element={<NeonFlow />} />
-          <Route path='/auth' element={<Landing />}/>
+          <Route path='/auth' element={<Auth />}/>
           <Route
             path="/app"
             element={
