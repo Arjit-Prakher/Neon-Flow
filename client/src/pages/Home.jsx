@@ -21,7 +21,7 @@ const initialNode = [
     {
         id: 'welcome-node-1',
         type: 'greetings',
-        position: { x: 300, y: 100 },
+        position: { x: 10, y: 10 },
     }
 ]
 
@@ -34,8 +34,16 @@ const Home = () => {
     const [messages, setMessages] = useState([]);
     const [nodes, setNodes, onNodesChange] = useNodesState(initialNode);
     const [edges, setEdges, onEdgesChange] = useEdgesState([]);
-    const { screenToFlowPosition } = useReactFlow();
-    console.log(nodes);
+    const { screenToFlowPosition, fitView } = useReactFlow();
+
+    const handleNodeClick = useCallback(
+        (_, node) => {
+            fitView({ nodes: [node], duration: 150 })
+        },
+        [fitView]
+    )
+
+
     useEffect(() => {
         if (nodes.length > 0) {
             const timeout = setTimeout(() => {
@@ -184,36 +192,41 @@ const Home = () => {
     }
     return (
         <>
-            <div className='sidebar-container absolute z-10'>
-                <Sidebar
-                    onNewFlow={handleNewFlow}
-                    history={history}
-                    setHistory={setHistory}
-                    setNodes={setNodes}
-                    setEdges={setEdges}
-                    activeFlowId={activeFlowId}
-                    setActiveFlowId={setActiveFlowId}
-                    setMessages={setMessages} // Allow sidebar to load old messages
-                    initialNode={initialNode}
-                />
-            </div>
-            <div className='canvas-ground h-screen w-screen bg-[#151a28]'>
-                <FlowCanvas
-                    // key={activeFlowId || 'new'}
-                    nodes={nodes}
-                    edges={edges}
-                    nodeTypes={nodeTypes}
-                    edgeTypes={edgeTypes}
-                    onNodesChange={onNodesChange}
-                    onEdgesChange={onEdgesChange}
-                    onConnect={onConnect}
-                    onConnectEnd={onConnectEnd}
+            <div className='container w-screen h-screen flex items-center justify-center'>
 
-                    setNodes={setNodes}
-                    messages={messages}
-                    setMessages={setMessages}
-                />
 
+                <div className='sidebar-container'>
+                    <Sidebar
+                        onNewFlow={handleNewFlow}
+                        history={history}
+                        setHistory={setHistory}
+                        setNodes={setNodes}
+                        setEdges={setEdges}
+                        activeFlowId={activeFlowId}
+                        setActiveFlowId={setActiveFlowId}
+                        setMessages={setMessages} // Allow sidebar to load old messages
+                        initialNode={initialNode}
+                    />
+                </div>
+                <div className='canvas-ground h-screen w-screen bg-[#151a28]'>
+                    <FlowCanvas
+                        // key={activeFlowId || 'new'}
+                        nodes={nodes}
+                        edges={edges}
+                        nodeTypes={nodeTypes}
+                        edgeTypes={edgeTypes}
+                        onNodesChange={onNodesChange}
+                        onEdgesChange={onEdgesChange}
+                        onConnect={onConnect}
+                        onConnectEnd={onConnectEnd}
+                        handleNodeClick={handleNodeClick}
+
+                        setNodes={setNodes}
+                        messages={messages}
+                        setMessages={setMessages}
+                    />
+
+                </div>
             </div>
         </>
     )

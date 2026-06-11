@@ -6,6 +6,10 @@ import ReactMarkdown from "react-markdown";
 import remarkMath from 'remark-math';
 import rehypeKatex from 'rehype-katex';
 
+// const style = {
+//     width: `70vw`,
+    
+// }
 
 const InitialNode = ({ id, data }) => {
 
@@ -33,27 +37,14 @@ const InitialNode = ({ id, data }) => {
         setLoading(true);
         try {
             let aiTitle = title;
-            // if (!aiTitle) {
-            //     aiTitle = await generateFlowTitle(message);
-            // }
-            // const aiReply = await generateResponse(message, [], {});
             const [fetchedTitle, aiReply] = await Promise.all([
                 !aiTitle ? generateFlowTitle(message) : Promise.resolve(aiTitle),
                 generateResponse(message, [], {})
             ]);
             aiTitle = fetchedTitle;
-            // setTitle(aiTitle || 'New Visual Graph');
             setTitle(aiTitle);
             setResponse(aiReply);
 
-            // 4. SAVE TO GRAPH so children can crawl this node
-            // setNodes((nds) =>
-            //     nds.map((node) =>
-            //         node.id === id
-            //             ? { ...node, data: { ...node.data, title: aiTitle, message, response: aiReply } }
-            //             : node
-            //     )
-            // );
             setNodes((nds) =>
                 nds.map((node) => {
                     if (node.id === id) {
@@ -79,24 +70,26 @@ const InitialNode = ({ id, data }) => {
 
 
     return (
-        <div className='initial-node bg-[#151a28] px-5 py-4 rounded-2xl w-150 border-4 border-sky-400 text-white'>
+        <div style={{width: '70vw'}} className='nowheel initial-node bg-[#151a28] px-5 py-4 rounded-2xl border-4 border-sky-400 text-white'>
+            
             <Handle type="source" position={Position.Bottom} id="source-bottom" />
 
-            <div className='greetings mt-4'>
-                <h1 className='text-5xl bg-linear-to-r from-pink-500 to-blue-500 bg-clip-text text-transparent font-extrabold'>Hi, {user.charAt(0).toUpperCase() + user.slice(1)}!</h1>
-                <h3 className="markdown text-xl mt-3">
+            <div className='greetings mt-4 flex flex-col items-center'>
+                <h1 className='text-3xl bg-linear-to-r from-pink-500 to-blue-500 bg-clip-text text-transparent font-extrabold'>Hi, {user.charAt(0).toUpperCase() + user.slice(1)}!</h1>
+                <h3 className="markdown text-md mt-3">
                     <ReactMarkdown>
 
                         {title || "What should we dive into today!"}
                     </ReactMarkdown>
                 </h3>
+                
             </div>
 
-            <div className='user-input-form mt-4'>
+            <div className='nodrag user-input-form mt-4'>
                 <form onSubmit={onSubmit} className='flex items-center justify-between gap-1'>
                     <textarea
-                        rows="3"
-                        className='border rounded-2xl px-4 py-2 w-full overflow-hidden'
+                        rows="1"
+                        className='border rounded-2xl px-4 py-3 w-full overflow-hidden'
                         type="text"
                         placeholder='Describe your message'
                         value={message}
@@ -110,15 +103,15 @@ const InitialNode = ({ id, data }) => {
                 </form>
             </div>
 
-            <div className='nowheel responses mt-4'>
+            <div className='nowheel nodrag cursor-text select-text responses mt-4'>
                 <div
-                    className={`markdown border px-4 py-2 rounded-2xl ${expanded ? "max-h-80 overflow-y-auto" : "max-h-40 overflow-hidden"
+                    className={`markdown px-4 py-2 rounded-2xl ${expanded ? "max-h-80 overflow-y-auto" : "max-h-40 overflow-hidden"
                         } custom-scrollbar`}>
                     <ReactMarkdown
                         remarkPlugins={[remarkMath]}
                         rehypePlugins={[rehypeKatex]}
                     >
-                        {loading ? "Loading..." : response || "Responses will appear here..."}
+                        {loading ? "Loading..." : response || "Waiting for your question 🤔"}
                     </ReactMarkdown>
                 </div>
                 {response && response.length > 200 && (

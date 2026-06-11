@@ -112,7 +112,7 @@ const ChatNode = ({ id, data }) => {
     };
 
     return (
-        <div className='initial-node bg-zinc-800 px-5 py-4 rounded-3xl w-140 border-4 border-pink-700 text-white'>
+        <div style={{width: `70vw`}} className='initial-node bg-zinc-800 px-5 py-4 rounded-3xl w-140 border-4 border-pink-700 text-white'>
             <Handle type="target" position={dynamicTargetPosition} id="target-dynamic" />
 
             <Handle type="source" position={dynamicSourceTop} id="source-top" />
@@ -137,7 +137,7 @@ const ChatNode = ({ id, data }) => {
                 </form>
             </div>
 
-            <div className='nowheel responses mt-4'>
+            <div className='nowheel nodrag cursor-text select-text responses mt-4'>
                 <div className={`markdown border px-4 py-2 rounded-2xl ${expanded ? 'max-h-80 overflow-y-auto' : 'max-h-40 overflow-hidden'} custom-scrollbar`}>
                     <ReactMarkdown
                         remarkPlugins={[remarkMath]}
