@@ -6,10 +6,9 @@ import ReactMarkdown from "react-markdown";
 import remarkMath from 'remark-math';
 import rehypeKatex from 'rehype-katex';
 
-// const style = {
-//     width: `70vw`,
-    
-// }
+import Skeleton, { SkeletonTheme } from 'react-loading-skeleton';
+import 'react-loading-skeleton/dist/skeleton.css';
+
 
 const InitialNode = ({ id, data }) => {
 
@@ -70,8 +69,8 @@ const InitialNode = ({ id, data }) => {
 
 
     return (
-        <div style={{width: '70vw'}} className='nowheel initial-node bg-[#151a28] px-5 py-4 rounded-2xl border-4 border-sky-400 text-white'>
-            
+        <div style={{ width: '70vw' }} className='nowheel initial-node bg-[#151a28] px-5 py-4 rounded-2xl border-4 border-sky-400 text-white'>
+
             <Handle type="source" position={Position.Bottom} id="source-bottom" />
 
             <div className='greetings mt-4 flex flex-col items-center'>
@@ -82,7 +81,7 @@ const InitialNode = ({ id, data }) => {
                         {title || "What should we dive into today!"}
                     </ReactMarkdown>
                 </h3>
-                
+
             </div>
 
             <div className='nodrag user-input-form mt-4'>
@@ -107,12 +106,29 @@ const InitialNode = ({ id, data }) => {
                 <div
                     className={`markdown px-4 py-2 rounded-2xl ${expanded ? "max-h-80 overflow-y-auto" : "max-h-40 overflow-hidden"
                         } custom-scrollbar`}>
-                    <ReactMarkdown
+                    {/* <ReactMarkdown
                         remarkPlugins={[remarkMath]}
                         rehypePlugins={[rehypeKatex]}
                     >
                         {loading ? "Loading..." : response || "Waiting for your question 🤔"}
-                    </ReactMarkdown>
+                        
+                    </ReactMarkdown> */}
+                    {loading ? (
+                        <>
+                            <p>Tailoring response..</p>
+                            <SkeletonTheme baseColor="#202020" highlightColor="#444444">
+                                <div className="space-y-2">
+                                    <Skeleton width="60%" height={20} className="mb-2" />
+                                    <Skeleton count={3} height={14} />
+                                    <Skeleton width="40%" height={14} className="mt-2" />
+                                </div>
+                            </SkeletonTheme>
+                        </>
+                    ) : (
+                        <ReactMarkdown remarkPlugins={[remarkMath]} rehypePlugins={[rehypeKatex]}>
+                            {loading ? "Loading..." : response || "Waiting for your question 🤔"}
+                        </ReactMarkdown>
+                    )}
                 </div>
                 {response && response.length > 200 && (
                     <button

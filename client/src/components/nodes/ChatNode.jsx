@@ -112,7 +112,7 @@ const ChatNode = ({ id, data }) => {
     };
 
     return (
-        <div style={{width: `70vw`}} className='initial-node bg-zinc-800 px-5 py-4 rounded-3xl w-140 border-4 border-pink-700 text-white'>
+        <div style={{ width: `70vw` }} className='initial-node bg-zinc-800 px-5 py-4 rounded-3xl w-140 border-4 border-pink-700 text-white'>
             <Handle type="target" position={dynamicTargetPosition} id="target-dynamic" />
 
             <Handle type="source" position={dynamicSourceTop} id="source-top" />
@@ -125,7 +125,7 @@ const ChatNode = ({ id, data }) => {
                         rows={2}
                         className='border rounded-2xl px-4 py-2 w-full overflow-hidden'
                         type="text"
-                        placeholder='Describe your message'
+                        placeholder='Shall we take it forward or dive deep..'
                         value={message}
                         onChange={onChange}
                     />
@@ -138,13 +138,34 @@ const ChatNode = ({ id, data }) => {
             </div>
 
             <div className='nowheel nodrag cursor-text select-text responses mt-4'>
-                <div className={`markdown border px-4 py-2 rounded-2xl ${expanded ? 'max-h-80 overflow-y-auto' : 'max-h-40 overflow-hidden'} custom-scrollbar`}>
-                    <ReactMarkdown
+                <div className={`markdown px-4 py-2 rounded-2xl ${expanded ? 'max-h-80 overflow-y-auto' : 'max-h-40 overflow-hidden'} custom-scrollbar`}>
+                    {/* <ReactMarkdown
                         remarkPlugins={[remarkMath]}
                         rehypePlugins={[rehypeKatex]}
                     >
                         {loading ? "Loading..." : response || "Responses will appear here..."}
-                    </ReactMarkdown>
+                    </ReactMarkdown> */}
+                    {
+                        loading ? (
+                            <>
+                                <p>Hang tight...</p>
+                                <SkeletonTheme baseColor="#202020" highlightColor="#444444">
+                                    <div className="space-y-2">
+                                        <Skeleton width="60%" height={20} className="mb-2" />
+                                        <Skeleton count={3} height={14} />
+                                        <Skeleton width="40%" height={14} className="mt-2" />
+                                    </div>
+                                </SkeletonTheme>
+                            </>
+                        ) : (
+                            <ReactMarkdown
+                                remarkPlugins={[remarkMath]}
+                                rehypePlugins={[rehypeKatex]}
+                            >
+                                {loading ? "Loading..." : response || "Carry on... 😄"}
+                            </ReactMarkdown>
+                        )
+                    }
                 </div>
                 {response && response.length > 200 && (
                     <button

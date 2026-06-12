@@ -1,9 +1,23 @@
-import { Background, Controls, MiniMap, ReactFlow } from "@xyflow/react"
-
+import { Background, Controls, MiniMap, ReactFlow, useReactFlow } from "@xyflow/react"
+import zoomIn from "../assets/zoom-in.png";
+import zoomOut from "../assets/zoom-out.png";
 
 
 const FlowCanvas = ({ nodes, edges, nodeTypes, edgeTypes, onNodesChange, onEdgesChange, onConnect, onConnectEnd, handleNodeClick }) => {
-  // console.log(edges);
+
+  const { fitView } = useReactFlow();
+  const handleZoomOut = () => {
+    fitView({
+      maxZoom: 0.5,
+      duration: 150
+    })
+  }
+  const handleZoomIn = () => {
+    fitView({
+      minZoom: 0.5,
+      duration: 150
+    })
+  }
 
   return (
     <ReactFlow
@@ -17,9 +31,21 @@ const FlowCanvas = ({ nodes, edges, nodeTypes, edgeTypes, onNodesChange, onEdges
       onNodeClick={handleNodeClick}
       onConnectEnd={onConnectEnd}
     >
-      
-      <Controls position="top-right" showInteractive={false}/>
-      {/* <MiniMap bgColor="#151a28" pannable zoomable/> */}
+      <div className="zoom-buttons absolute z-10 top-5 right-2 flex flex-col gap-3">
+        <div
+          onClick={handleZoomOut}
+          className="zoom-out h-10 w-10 border p-1 border-amber-50 cursor-pointer rounded-md">
+          <img src={zoomOut} alt="zoom-out" />
+        </div>
+        <div
+          onClick={handleZoomIn}
+          className="zoom-in h-10 w-10 border p-1 border-amber-50 cursor-pointer rounded-md">
+          <img src={zoomIn} alt="zoom-out" />
+        </div>
+
+      </div>
+      {/* <Controls position="top-right" showInteractive={false} /> */}
+
       <svg>
         <linearGradient id="edge">
           <stop offset="0%" stopColor="#b71f6e" />

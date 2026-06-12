@@ -1,7 +1,7 @@
 import InitialNode from '../components/nodes/InitialNode'
 import Sidebar from '../components/Sidebar'
 import FlowCanvas from '../components/FlowCanvas'
-import { addEdge, MarkerType, useEdgesState, useNodesState, useReactFlow } from '@xyflow/react'
+import { addEdge, useEdgesState, useNodesState, useReactFlow } from '@xyflow/react'
 import ChatNode from '../components/nodes/ChatNode'
 import { nanoid } from 'nanoid'
 import { useCallback, useEffect, useState } from 'react'
@@ -31,19 +31,12 @@ const Home = () => {
     const { token } = useAuth();
     const [history, setHistory] = useState([]);
     const [activeFlowId, setActiveFlowId] = useState(null);
-    const [messages, setMessages] = useState([]);
     const [nodes, setNodes, onNodesChange] = useNodesState(initialNode);
     const [edges, setEdges, onEdgesChange] = useEdgesState([]);
     const { screenToFlowPosition, fitView } = useReactFlow();
+    const [messages, setMessages] = useState([]);
 
-    const handleNodeClick = useCallback(
-        (_, node) => {
-            fitView({ nodes: [node], duration: 150 })
-        },
-        [fitView]
-    )
-
-
+    // Debounced save when nodes/edges/messages change
     useEffect(() => {
         if (nodes.length > 0) {
             const timeout = setTimeout(() => {
@@ -89,11 +82,11 @@ const Home = () => {
 
     // 2. SAVE: Send the current canvas to MongoDB
     const saveCurrentFlow = async () => {
-        // if (nodes.length <= 1 && !nodes[0]?.data?.message) return;
-
-        const hasChatNode = nodes.some(node => node.type === 'chat');
-        // console.log(hasChatNode);
-        if (!hasChatNode) return;
+        // Save when there's any chat node OR when the initial greetings node has a response
+        const hasChatOrInitialResponse = nodes.some(node =>
+            node.type === 'chat' || (node.type === 'greetings' && node.data?.response)
+        );
+        if (!hasChatOrInitialResponse) return;
 
         const flowData = {
             title: nodes[0]?.data?.title?.substring(0, 20) || "New Flow",
@@ -171,25 +164,33 @@ const Home = () => {
         [screenToFlowPosition]
     )
 
-    const handleNewFlow = async () => {
+    const handleNodeClick = useCallback(
+        (_, node) => {
+            fitView({ nodes: [node], duration: 150 })
+        },
+        [fitView]
+    )
 
-        // console.log(nodes);
-        if (!nodes.data) {
-            // console.log("yahi se return ho raha hai");
-            setNodes(initialNode);
-            setEdges([]);
-            setMessages([]);
-            setActiveFlowId(null);
-            return;
-        }
-        if (nodes.some(n => n.data.message !== '')) {
+    const handleNewFlow = async () => {
+        if (nodes.some(n => n.data?.message !== '')) {
             await saveCurrentFlow();
         }
+
         setNodes(initialNode);
         setEdges([]);
         setMessages([]);
         setActiveFlowId(null);
+
+        // Center the initial node immediately so users see it in front
+        setTimeout(() => {
+            try {
+                fitView({ padding: 0.2 });
+            } catch (err) {
+                // ignore if fitView isn't ready yet
+            }
+        }, 50);
     }
+
     return (
         <>
             <div className='container w-screen h-screen flex items-center justify-center'>
@@ -210,7 +211,6 @@ const Home = () => {
                 </div>
                 <div className='canvas-ground h-screen w-screen bg-[#151a28]'>
                     <FlowCanvas
-                        // key={activeFlowId || 'new'}
                         nodes={nodes}
                         edges={edges}
                         nodeTypes={nodeTypes}
