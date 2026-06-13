@@ -21,7 +21,7 @@ const initialNode = [
     {
         id: 'welcome-node-1',
         type: 'greetings',
-        position: { x: 10, y: 10 },
+        position: { x: 50, y: 10 },
     }
 ]
 
@@ -209,7 +209,7 @@ const Home = () => {
                         initialNode={initialNode}
                     />
                 </div>
-                <div className='canvas-ground h-screen w-screen bg-[#151a28]'>
+                <div className='canvas-ground h-screen w-screen bg-[#0c101b]'>
                     <FlowCanvas
                         nodes={nodes}
                         edges={edges}

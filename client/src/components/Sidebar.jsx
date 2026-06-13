@@ -111,7 +111,7 @@ const Sidebar = ({ onNewFlow, history, setHistory, setNodes, setEdges, activeFlo
                                     </p>
                                 </button>
                                 <button onClick={() => loadFlow(flow)} className="...">
-                                    <div className="flex justify-between items-center w-full bg-rose-600 cursor-pointer transition-all active:scale-95">
+                                    <div className="flex justify-between items-center w-full  rounded-md bg-rose-500 cursor-pointer transition-all active:scale-95">
                                         <span
                                             onClick={(e) => deleteFlow(e, flow._id)}
                                             className="hover:text-red-500 p-3"

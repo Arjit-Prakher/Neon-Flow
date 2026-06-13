@@ -30,6 +30,8 @@ const InitialNode = ({ id, data }) => {
 
     const onChange = (event) => setMessage(event.target.value);
     const isGoDisabled = loading || Boolean(response);
+    let showGoButton = false;
+    if (message.length > 0) showGoButton = true;
 
     const onSubmit = async (event) => {
         event.preventDefault();
@@ -97,7 +99,7 @@ const InitialNode = ({ id, data }) => {
                     <button
                         type="submit"
                         disabled={isGoDisabled}
-                        className='cursor-pointer px-4 py-2 rounded-2xl border bg-linear-to-r from-pink-700 to-blue-700 hover:scale-110 active:scale-90 transition-all'>
+                        className={showGoButton?'cursor-pointer px-4 py-2 rounded-2xl border bg-linear-to-r from-pink-700 to-blue-700 hover:scale-110 active:scale-90 transition-all' : 'hidden'}>
                         Go</button>
                 </form>
             </div>
@@ -106,13 +108,6 @@ const InitialNode = ({ id, data }) => {
                 <div
                     className={`markdown px-4 py-2 rounded-2xl ${expanded ? "max-h-80 overflow-y-auto" : "max-h-40 overflow-hidden"
                         } custom-scrollbar`}>
-                    {/* <ReactMarkdown
-                        remarkPlugins={[remarkMath]}
-                        rehypePlugins={[rehypeKatex]}
-                    >
-                        {loading ? "Loading..." : response || "Waiting for your question 🤔"}
-                        
-                    </ReactMarkdown> */}
                     {loading ? (
                         <>
                             <p>Tailoring response..</p>

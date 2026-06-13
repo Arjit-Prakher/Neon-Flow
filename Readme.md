@@ -106,4 +106,4 @@ Neon Flow is more than a tool; it is a shift in how we interact with artificial 
 
 *Launching soon*
 ## Author
-This is the work of *Arjit Prakher*, a student of **Master's of Computer Application**
+This is the work of *Arjit Prakher*, a student of **Master of Computer Application**
