@@ -31,6 +31,7 @@ const Home = () => {
     const { token } = useAuth();
     const [history, setHistory] = useState([]);
     const [activeFlowId, setActiveFlowId] = useState(null);
+    const [isSidebarOpen, setIsSidebarOpen] = useState(true);
     const [nodes, setNodes, onNodesChange] = useNodesState(initialNode);
     const [edges, setEdges, onEdgesChange] = useEdgesState([]);
     const { screenToFlowPosition, fitView } = useReactFlow();
@@ -191,6 +192,7 @@ const Home = () => {
         }, 50);
     }
 
+
     return (
         <>
             <div className='container w-screen h-screen flex items-center justify-center'>
@@ -198,6 +200,8 @@ const Home = () => {
 
                 <div className='sidebar-container'>
                     <Sidebar
+                        isOpen={isSidebarOpen}
+                        setIsSidebarOpen={setIsSidebarOpen}
                         onNewFlow={handleNewFlow}
                         history={history}
                         setHistory={setHistory}
@@ -205,7 +209,7 @@ const Home = () => {
                         setEdges={setEdges}
                         activeFlowId={activeFlowId}
                         setActiveFlowId={setActiveFlowId}
-                        setMessages={setMessages} // Allow sidebar to load old messages
+                        setMessages={setMessages}
                         initialNode={initialNode}
                     />
                 </div>

@@ -31,7 +31,7 @@ const FlowCanvas = ({ nodes, edges, nodeTypes, edgeTypes, onNodesChange, onEdges
       onNodeClick={handleNodeClick}
       onConnectEnd={onConnectEnd}
     >
-      <div className="zoom-buttons absolute z-10 top-5 right-2 flex flex-col gap-3">
+      <div className="zoom-buttons bg-[#0e1b3c] p-2 border border-white rounded-md absolute z-10 top-5 right-2 flex flex-col gap-3">
         <div
           onClick={handleZoomOut}
           className="zoom-out h-10 w-10 border p-1 border-amber-50 cursor-pointer rounded-md">
