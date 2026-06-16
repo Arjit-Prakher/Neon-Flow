@@ -3,12 +3,17 @@ import { useAuth } from "../context/AuthContext";
 import dustbin from "../assets/dustbin.png";
 import rightarrow from "../assets/right-arrow.png";
 import leftarrow from "../assets/left-arrow.png";
+import { useEffect, useState } from "react";
 
 const Sidebar = ({ onNewFlow, history, setHistory, setNodes, setEdges, activeFlowId, setActiveFlowId, setMessages, initialNode, isOpen, setIsSidebarOpen }) => {
 
     const { logout, token } = useAuth();
     const user = localStorage.getItem('user');
     const navigate = useNavigate();
+
+    useEffect(() => {
+        localStorage.setItem("sidebar", JSON.stringify(isOpen));
+    }, [isOpen]);
 
     const handleLogout = () => {
         logout();
@@ -74,39 +79,41 @@ const Sidebar = ({ onNewFlow, history, setHistory, setNodes, setEdges, activeFlo
                 <div className="flex-1 overflow-y-auto overflow-x-hidden px-4 custom-scrollbar">
                     <h3 className="text-xs font-semibold text-zinc-500 uppercase tracking-widest mb-4">Recent Flows</h3>
                     <div className="flex flex-col gap-2">
-                        {history.length > 0 ? (
-                            history.map((flow, index) => (
-                                <div key={index} className="flex w-full items-center justify-between gap-2">
-                                    <button
-                                        key={flow._id}
-                                        onClick={() => loadFlow(flow)}
-                                        className={`w-full group text-left p-3 rounded-xl border transition-all
+                        {
+                            history.length > 0 ? (
+                                history.map((flow, index) => (
+                                    <div key={index} className="flex w-full items-center justify-between gap-2">
+                                        <button
+                                            key={flow._id}
+                                            onClick={() => loadFlow(flow)}
+                                            className={`w-full group text-left p-3 rounded-xl border transition-all
                                     ${activeFlowId === flow._id
-                                                ? "bg-pink-900/40 border-pink-500"
-                                                : "bg-zinc-900/50 border-zinc-800 hover:border-pink-500/50 hover:bg-zinc-800"}
+                                                    ? "bg-pink-900/40 border-pink-500"
+                                                    : "bg-zinc-900/50 border-zinc-800 hover:border-pink-500/50 hover:bg-zinc-800"}
                                     `}
-                                    >
-                                        <p className="text-sm font-medium truncate group-hover:text-pink-400">
-                                            {flow.title || "Untitled Flow"}
-                                        </p>
-                                        <p className="text-[10px] text-zinc-600 mt-1">
-                                            {new Date(flow.updatedAt).toLocaleDateString()}
-                                        </p>
-                                    </button>
-                                    <button onClick={() => loadFlow(flow)} className="...">
-                                        <div
-                                            onClick={(e) => deleteFlow(e, flow._id)}
-                                            className="flex justify-between items-center w-full border border-white p-2 rounded-md bg-[#0e1b3c] cursor-pointer transition-all active:scale-95">
+                                        >
+                                            <p className="text-sm font-medium truncate group-hover:text-pink-400">
+                                                {flow.title || "Untitled Flow"}
+                                            </p>
+                                            <p className="text-[10px] text-zinc-600 mt-1">
+                                                {new Date(flow.updatedAt).toLocaleDateString()}
+                                            </p>
+                                        </button>
+                                        <button onClick={() => loadFlow(flow)} className="...">
+                                            <div
+                                                onClick={(e) => deleteFlow(e, flow._id)}
+                                                className="flex justify-between items-center w-full border border-white p-2 rounded-md bg-[#0e1b3c] cursor-pointer transition-all active:scale-95">
 
-                                            <img src={dustbin} alt="" className="w-10" />
+                                                <img src={dustbin} alt="" className="w-10" />
 
-                                        </div>
-                                    </button>
-                                </div>
-                            ))
-                        ) : (
-                            <p className="text-sm text-zinc-600 italic">No history yet...</p>
-                        )}
+                                            </div>
+                                        </button>
+                                    </div>
+                                ))
+                            ) : (
+                                <p className="text-sm text-zinc-600 italic">No history yet...</p>
+                            )
+                        }
                     </div>
                 </div>
             )}

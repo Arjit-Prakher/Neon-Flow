@@ -7,6 +7,7 @@ import { nanoid } from 'nanoid'
 import { useCallback, useEffect, useState } from 'react'
 import CustomEdge from '../components/custom-edge/CustomEdge'
 import { useAuth } from '../context/AuthContext'
+import NodeFinder from '../components/NodeFinder'
 
 const nodeTypes = {
     greetings: InitialNode,
@@ -31,11 +32,21 @@ const Home = () => {
     const { token } = useAuth();
     const [history, setHistory] = useState([]);
     const [activeFlowId, setActiveFlowId] = useState(null);
-    const [isSidebarOpen, setIsSidebarOpen] = useState(true);
     const [nodes, setNodes, onNodesChange] = useNodesState(initialNode);
     const [edges, setEdges, onEdgesChange] = useEdgesState([]);
-    const { screenToFlowPosition, fitView } = useReactFlow();
+    const { screenToFlowPosition, fitView, setCenter } = useReactFlow();
     const [messages, setMessages] = useState([]);
+
+    const [isSidebarOpen, setIsSidebarOpen] =
+        useState(() => {
+            const saved = localStorage.getItem(
+                "sidebar"
+            );
+
+            return saved
+                ? JSON.parse(saved)
+                : true;
+        });
 
     // Debounced save when nodes/edges/messages change
     useEffect(() => {
@@ -167,7 +178,7 @@ const Home = () => {
 
     const handleNodeClick = useCallback(
         (_, node) => {
-            fitView({ nodes: [node], duration: 150 })
+            fitView({ nodes: [node], duration: 800 })
         },
         [fitView]
     )
@@ -191,48 +202,54 @@ const Home = () => {
             }
         }, 50);
     }
-
+// console.log("in home.jsx: ", messages.length)
 
     return (
-        <>
-            <div className='container w-screen h-screen flex items-center justify-center'>
+        <div className='container w-screen h-screen flex items-center justify-center'>
 
 
-                <div className='sidebar-container'>
-                    <Sidebar
-                        isOpen={isSidebarOpen}
-                        setIsSidebarOpen={setIsSidebarOpen}
-                        onNewFlow={handleNewFlow}
-                        history={history}
-                        setHistory={setHistory}
-                        setNodes={setNodes}
-                        setEdges={setEdges}
-                        activeFlowId={activeFlowId}
-                        setActiveFlowId={setActiveFlowId}
-                        setMessages={setMessages}
-                        initialNode={initialNode}
-                    />
-                </div>
-                <div className='canvas-ground h-screen w-screen bg-[#0c101b]'>
-                    <FlowCanvas
-                        nodes={nodes}
-                        edges={edges}
-                        nodeTypes={nodeTypes}
-                        edgeTypes={edgeTypes}
-                        onNodesChange={onNodesChange}
-                        onEdgesChange={onEdgesChange}
-                        onConnect={onConnect}
-                        onConnectEnd={onConnectEnd}
-                        handleNodeClick={handleNodeClick}
-
-                        setNodes={setNodes}
-                        messages={messages}
-                        setMessages={setMessages}
-                    />
-
-                </div>
+            <div className='sidebar-container'>
+                <Sidebar
+                    isOpen={isSidebarOpen}
+                    setIsSidebarOpen={setIsSidebarOpen}
+                    onNewFlow={handleNewFlow}
+                    history={history}
+                    setHistory={setHistory}
+                    setNodes={setNodes}
+                    setEdges={setEdges}
+                    activeFlowId={activeFlowId}
+                    setActiveFlowId={setActiveFlowId}
+                    setMessages={setMessages}
+                    initialNode={initialNode}
+                />
             </div>
-        </>
+            <div className='canvas-ground h-screen w-screen bg-[#0c101b]'>
+                <FlowCanvas
+                    nodes={nodes}
+                    edges={edges}
+                    nodeTypes={nodeTypes}
+                    edgeTypes={edgeTypes}
+                    onNodesChange={onNodesChange}
+                    onEdgesChange={onEdgesChange}
+                    onConnect={onConnect}
+                    onConnectEnd={onConnectEnd}
+                    handleNodeClick={handleNodeClick}
+
+                    setNodes={setNodes}
+                    messages={messages}
+                    setMessages={setMessages}
+                />
+
+            </div>
+
+            <div className='node-finder absolute right-4 top-1/2 -translate-y-1/2 z-30'>
+                <NodeFinder
+                    nodes={nodes}
+                    setCenter={setCenter}
+                    fitView={fitView}
+                />
+            </div>
+        </div>
     )
 }
 // This work belongs to Arjit Prakher
