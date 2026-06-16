@@ -26,14 +26,6 @@ Neon Flow solves this by introducing **Spatial Context**. Instead of scrolling, 
 
 ---
 
-## The Innovation: What’s New?
-Unlike standard AI clones, Neon Flow introduces the **Node-Logic AI Architecture**:
-
-1.  **Non-Linear Interaction**: You can connect a response from 20 minutes ago to a new prompt today.
-2.  **Tiered AI Intelligence**: Integrated with the **Groq Llama-3 70B** model for Pro users, providing near-instantaneous inference speeds that make the canvas feel like a living extension of your thoughts.
-3.  **Visual State Management**: The system doesn't just save text; it saves the **spatial coordinates** of your ideas.
-
----
 
 ## Tech Stack
 *   **Frontend**: React.js with **React Flow** for the infinite canvas engine.
