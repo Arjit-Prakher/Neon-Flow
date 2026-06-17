@@ -17,6 +17,11 @@ const NodeFinder = ({ nodes, setCenter, fitView }) => {
             onMouseLeave={() => setIsHovered(false)}
         >
             {/* The Expanded Message List Container */}
+            {
+                isHovered && validNodes.length === 0 && <div className='mr-3 bg-[#151a28]/95 backdrop-blur-md border border-slate-400/50 
+                rounded-2xl p-4 w-72 max-h-96 overflow-y-auto custom-scrollbar shadow-2xl
+                transition-all duration-300 transform origin-right text-xs font-bold tracking-wider text-slate-200 uppercase mb-3 px-1 text-center'>Explore your mind!</div>
+            }
             <div className={`
                 mr-3 bg-[#151a28]/95 backdrop-blur-md border border-slate-700/50 
                 rounded-2xl p-4 w-72 max-h-96 overflow-y-auto custom-scrollbar shadow-2xl
@@ -26,8 +31,9 @@ const NodeFinder = ({ nodes, setCenter, fitView }) => {
                     : 'hidden scale-95 translate-x-4 pointer-events-none'}
             `}>
 
-                <h4 className="text-xs font-bold tracking-wider text-slate-400 uppercase mb-3 px-1">
-                    Canvas Nodes Map ({validNodes.length})
+
+                <h4 className="text-xs font-bold tracking-wider text-slate-100 uppercase mb-3 px-1">
+                    Canvas Nodes Map
                 </h4>
 
                 <div className="flex flex-col gap-1.5">
