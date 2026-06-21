@@ -10,9 +10,8 @@ const cors = require('cors');
 const mongoose = require('mongoose');
 const path = require('path');
 
-// Import your newly streamlined CommonJS Gemini utilities
 dotenv.config({ path: path.join(__dirname, '..', '.env') });
-const { generateResponse, generateFlowTitle } = require('./utils/llm');
+const { generateResponse, generateFlowTitle } = require('./utils/openRouterLLM');
 
 
 const app = express();
@@ -20,12 +19,13 @@ const app = express();
 const authRoutes = require("./routes/auth");
 const flowRoutes = require("./routes/flows");
 
-app.use(express.json());
+app.use(express.json({ limit: '10mb' }));
+app.use(express.urlencoded({ limit: '10mb', extended: true }));
 
 app.use(cors({
     origin: "http://localhost:5173",
     methods: ["GET", "POST", "PUT", "DELETE"],
-    allowedHeaders: ["Content-Type", "Authorization"] 
+    allowedHeaders: ["Content-Type", "Authorization"]
 }));
 
 mongoose.connect(process.env.MONGODB_URI)
@@ -35,11 +35,11 @@ mongoose.connect(process.env.MONGODB_URI)
 app.use("/api/auth", authRoutes);
 app.use("/api/flows", flowRoutes);
 
-// Endpoint 1: Generate Node Chat Contents
 app.post("/api/generate", async (req, res) => {
     const { prompt, history, options } = req.body;
+    const attachments = options?.attachments || [];
     try {
-        const aiData = await generateResponse(prompt, history, options);
+        const aiData = await generateResponse(prompt, history, attachments);
         res.json(aiData);
     } catch (error) {
         console.error("Server /api/generate Error:", error);
@@ -47,7 +47,6 @@ app.post("/api/generate", async (req, res) => {
     }
 });
 
-// Endpoint 2: Generate Map Viewport Titles (FIXES THE SLOWNESS TIMEOUT)
 app.post("/api/title", async (req, res) => {
     const { query } = req.body;
     try {

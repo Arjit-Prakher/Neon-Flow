@@ -19,6 +19,7 @@ async function generateResponse(userPrompt, chatHistory = [], options = {}) {
         }));
 
         const userContents = [...contents, { role: 'user', parts: [{ text: userPrompt }] }];
+        console.log(userContents);
 
         if (options.withTitle) {
             userContents.push({
@@ -35,7 +36,6 @@ async function generateResponse(userPrompt, chatHistory = [], options = {}) {
                     thinkingLevel: 'low'
                 },
                 systemInstruction: `You are the core intelligence of Neon Flow, an infinite canvas spatial mind-mapping platform. If the user prompt is too generic like a greeting, then greet them back and ask their plan for today. Your goal is to help users dissect and structure complex topic with suitable analogies. Close your answer that encourages the user to ask 1 or 2 follow up questions from your answer or make them open to ask any relevant question from the topic they have started. Provide structured technical answers in clear Markdown when returning the assistant reply`,
-                temperature: 0.7,
             }
         });
 
@@ -73,8 +73,7 @@ async function generateFlowTitle(userPrompt) {
             config: {
                 thinkingConfig: {
                     thinkingLevel: 'minimal'
-                },
-                temperature: 0.3
+                }
             }
         });
 

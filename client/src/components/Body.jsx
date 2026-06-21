@@ -32,9 +32,9 @@ const Body = () => {
 
       {/* AI Engine Overview */}
       <div className="backdrop-blur-md bg-white/10 rounded-2xl shadow-lg p-8 max-w-4xl">
-        <h3 className="text-2xl font-bold text-blue-300 mb-4">Powered by Gemini‑3‑Flash</h3>
+        <h3 className="text-2xl font-bold text-blue-300 mb-4">Powered by Google Gemma 4</h3>
         <p className="text-gray-300">
-          At the backend, Neon Flow integrates <span className="font-semibold text-blue-400">Gemini‑3‑Flash</span>, 
+          At the backend, Neon Flow integrates <span className="font-semibold text-blue-400">Gemma 4</span>, 
           a high‑performance language model designed for speed and reliability. 
           It ensures context‑aware responses, enabling deeper exploration without 
           losing focus — the perfect companion for your spatial conversations.

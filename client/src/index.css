@@ -3,8 +3,31 @@
   @import "@xyflow/react/dist/style.css";
 }
 
+html, body, #root {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  min-height: 100%;
+  overflow-x: hidden;
+}
+
 .markdown > * {
   all: revert;
+}
+.markdown {
+  table {
+    border-collapse: collapse;
+  }
+
+  th,
+  td {
+    padding: 6px 13px;
+    border: 1px solid white;
+  }
+
+  p {
+    line-height: 1.5;
+  }
 }
 
 /* Neon scrollbar for dark theme */

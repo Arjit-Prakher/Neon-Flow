@@ -55,16 +55,14 @@ const Sidebar = ({ onNewFlow, history, setHistory, setNodes, setEdges, activeFlo
     return (
 
 
-        <aside className={`relative transition-all duration-300 ease-in-out h-screen bg-[#0f121a] border-r border-zinc-800 flex flex-col text-white
-            ${isOpen ? "w-72" : "w-20"}
-        `}>
+        <aside className={`transition-all duration-300 ease-in-out h-screen bg-[#0f121a] border-r border-zinc-800 flex flex-col text-white w-full`}>
             <button
                 onClick={() => setIsSidebarOpen(!isOpen)}
-                className="text-2xl w-10 h-10 bg-[#0e1b3c] border border-white cursor-pointer flex items-center justify-center rounded-md font-extrabold absolute top-0 right-0">
+                className={`text-2xl w-10 h-10 bg-[#0e1b3c] border border-white cursor-pointer flex items-center justify-center rounded-md font-extrabold absolute top-2 left-2`}>
                 <img src={isOpen ? leftarrow : rightarrow} alt="" className="w-5" />
             </button>
             {/* Top Section: Actions */}
-            <div className="p-4 flex flex-col gap-3 mt-8">
+            <div className="p-4 flex flex-col gap-3 mt-10">
                 <button
                     onClick={onNewFlow}
                     className="w-full bg-pink-700 hover:bg-pink-600 p-3 rounded-xl font-bold transition-colors shadow-lg shadow-pink-900/20"

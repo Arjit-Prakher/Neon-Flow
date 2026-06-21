@@ -1,9 +1,9 @@
-import { BaseEdge, getSmoothStepPath } from '@xyflow/react'
+import { BaseEdge, getBezierPath, getSmoothStepPath } from '@xyflow/react'
 import React from 'react'
 
 const CustomEdge = ({ id, sourceX, sourceY, targetX, targetY, sourcePosition, targetPosition, style, markerEnd }) => {
 
-    const [edgePath] = getSmoothStepPath({
+    const [edgePath] = getBezierPath({
         sourceX,
         sourceY,
         targetX,

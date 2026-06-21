@@ -12,15 +12,15 @@ const FlowCanvas = ({ nodes, edges, nodeTypes, edgeTypes, onNodesChange, onEdges
       duration: 150
     })
   }
-  const handleZoomIn = () => {
-    fitView({
-      minZoom: 0.5,
-      duration: 150
-    })
-  }
+  // const handleZoomIn = () => {
+  //   fitView({
+  //     minZoom: 0.5,
+  //     duration: 150
+  //   })
+  // }
 
   return (
-    <ReactFlow
+    <ReactFlow className="w-full h-full"
       nodes={nodes}
       edges={edges}
       nodeTypes={nodeTypes}
@@ -37,11 +37,11 @@ const FlowCanvas = ({ nodes, edges, nodeTypes, edgeTypes, onNodesChange, onEdges
           className="zoom-out h-10 w-10 border p-1 border-amber-50 cursor-pointer rounded-md">
           <img src={zoomOut} alt="zoom-out" />
         </div>
-        <div
+        {/* <div
           onClick={handleZoomIn}
           className="zoom-in h-10 w-10 border p-1 border-amber-50 cursor-pointer rounded-md">
           <img src={zoomIn} alt="zoom-out" />
-        </div>
+        </div> */}
 
       </div>
       {/* <Controls position="top-right" showInteractive={false} /> */}

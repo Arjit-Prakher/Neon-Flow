@@ -202,13 +202,13 @@ const Home = () => {
             }
         }, 50);
     }
-// console.log("in home.jsx: ", messages.length)
+    // console.log("in home.jsx: ", messages.length)
 
     return (
-        <div className='container w-screen h-screen flex items-center justify-center'>
+        <div className='w-full h-screen flex items-stretch overflow-hidden'>
 
 
-            <div className='sidebar-container'>
+            <div className={`sidebar-container relative transition-all duration-300 ease-in-out h-screen ${isSidebarOpen ? "w-96" : "w-20"}`}>
                 <Sidebar
                     isOpen={isSidebarOpen}
                     setIsSidebarOpen={setIsSidebarOpen}
@@ -223,7 +223,7 @@ const Home = () => {
                     initialNode={initialNode}
                 />
             </div>
-            <div className='canvas-ground h-screen w-screen bg-[#0c101b]'>
+            <div className='canvas-ground relative flex-1 h-screen bg-[#0c101b] overflow-hidden'>
                 <FlowCanvas
                     nodes={nodes}
                     edges={edges}

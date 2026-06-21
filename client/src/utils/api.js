@@ -7,8 +7,6 @@ export async function generateResponse(prompt, history = [], options = {}) {
         });
 
         const data = await res.json();
-
-        // Safety Filter: Catch non-200 statuses and return plain text instead of raw objects
         if (!res.ok) {
             return data.error || "An error occurred while generating a response.";
         }
