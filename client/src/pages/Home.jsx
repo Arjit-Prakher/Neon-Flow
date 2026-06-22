@@ -8,6 +8,7 @@ import { useCallback, useEffect, useState } from 'react'
 import CustomEdge from '../components/custom-edge/CustomEdge'
 import { useAuth } from '../context/AuthContext'
 import NodeFinder from '../components/NodeFinder'
+import { resolveCollisions } from '../components/collision/resolve-collisions'
 
 const nodeTypes = {
     greetings: InitialNode,
@@ -26,6 +27,8 @@ const initialNode = [
     }
 ]
 
+const DRAFT_FLOW_STORAGE_KEY = "neonflow.currentDraft";
+const ACTIVE_FLOW_STORAGE_KEY = "neonflow.activeFlowId";
 
 const Home = () => {
 
@@ -49,14 +52,32 @@ const Home = () => {
         });
 
     // Debounced save when nodes/edges/messages change
+    // useEffect(() => {
+    //     if (nodes.length > 0) {
+    //         const timeout = setTimeout(() => {
+    //             saveCurrentFlow();
+    //         }, 500);
+    //         return () => clearTimeout(timeout);
+    //     }
+    // }, [nodes, edges, messages]);
     useEffect(() => {
-        if (nodes.length > 0) {
-            const timeout = setTimeout(() => {
-                saveCurrentFlow();
-            }, 500);
-            return () => clearTimeout(timeout);
-        }
-    }, [nodes, edges, messages]);
+        if (nodes.length === 0) return;
+
+        const timeout = setTimeout(() => {
+            saveCurrentFlow();
+
+            const draft = {
+                nodes,
+                edges,
+                messages,
+                activeFlowId,
+                updatedAt: Date.now(),
+            };
+            localStorage.setItem(DRAFT_FLOW_STORAGE_KEY, JSON.stringify(draft));
+        }, 500);
+
+        return () => clearTimeout(timeout);
+    }, [nodes, edges, messages, activeFlowId]);
 
     useEffect(() => {
         const fetchActiveFlow = async () => {
@@ -65,6 +86,7 @@ const Home = () => {
                     headers: { 'Authorization': `Bearer ${token}` }
                 });
                 const flow = await res.json();
+                localStorage.setItem("ACTIVE_FLOW_STORAGE_KEY", flow._id);
                 if (res.ok) {
                     setNodes(flow.nodes);
                     setEdges(flow.edges);
@@ -74,6 +96,25 @@ const Home = () => {
         };
         fetchActiveFlow();
     }, [token, activeFlowId]);
+
+    useEffect(() => {
+        const draftJSON = localStorage.getItem(DRAFT_FLOW_STORAGE_KEY);
+        const savedActive = localStorage.getItem(ACTIVE_FLOW_STORAGE_KEY);
+        if (draftJSON) {
+            try {
+                const draft = JSON.parse(draftJSON);
+                if (draft.nodes?.length) setNodes(draft.nodes);
+                if (draft.edges) setEdges(draft.edges);
+                if (draft.messages) setMessages(draft.messages);
+                if (draft.activeFlowId) setActiveFlowId(draft.activeFlowId);
+            } catch (error) {
+                console.error("Failed to restore draft flow:", err);
+            }
+        } else if (savedActive) {
+            setActiveFlowId(savedActive);
+        }
+
+    }, []);
 
 
     // 1. LOAD: Fetch all user flows when the page opens
@@ -133,7 +174,10 @@ const Home = () => {
                     }
                     return [...prev, savedFlow];
                 });
-                if (!activeFlowId) setActiveFlowId(savedFlow._id);
+                if (!activeFlowId) {
+                    setActiveFlowId(savedFlow._id);
+                    localStorage.setItem("ACTIVE_FLOW_STORAGE_KEY", savedFlow._id);
+                }
                 return savedFlow;
             }
         } catch (err) {
@@ -160,7 +204,15 @@ const Home = () => {
                     origin: [0.5, 0.0],
                 };
 
-                setNodes((nds) => nds.concat(newNode));
+                // setNodes((nds) => nds.concat(newNode));
+                setNodes((nds) => {
+                    const updated = nds.concat(newNode);
+                    return resolveCollisions(updated, {
+                        maxIterations: Infinity,
+                        overlapThreshold: 0.5,
+                        margin: 15,
+                    });
+                });
 
                 setEdges((eds) =>
                     eds.concat({
@@ -175,6 +227,14 @@ const Home = () => {
         },
         [screenToFlowPosition]
     )
+
+    const onNodeDragStop = useCallback(() => {
+        setNodes((nds) => resolveCollisions(nds, {
+            maxIterations: 20,
+            overlapThreshold: 0.5,
+            margin: 15,
+        }));
+    }, []);
 
     const handleNodeClick = useCallback(
         (_, node) => {
@@ -193,14 +253,10 @@ const Home = () => {
         setMessages([]);
         setActiveFlowId(null);
 
+        localStorage.removeItem(DRAFT_FLOW_STORAGE_KEY);
+        localStorage.removeItem(ACTIVE_FLOW_STORAGE_KEY);
+
         // Center the initial node immediately so users see it in front
-        setTimeout(() => {
-            try {
-                fitView({ padding: 0.2 });
-            } catch (err) {
-                // ignore if fitView isn't ready yet
-            }
-        }, 50);
     }
     // console.log("in home.jsx: ", messages.length)
 
@@ -234,7 +290,7 @@ const Home = () => {
                     onConnect={onConnect}
                     onConnectEnd={onConnectEnd}
                     handleNodeClick={handleNodeClick}
-
+                    onNodeDragStop={onNodeDragStop}
                     setNodes={setNodes}
                     messages={messages}
                     setMessages={setMessages}

@@ -3,7 +3,7 @@ import zoomIn from "../assets/zoom-in.png";
 import zoomOut from "../assets/zoom-out.png";
 
 
-const FlowCanvas = ({ nodes, edges, nodeTypes, edgeTypes, onNodesChange, onEdgesChange, onConnect, onConnectEnd, handleNodeClick }) => {
+const FlowCanvas = ({ nodes, edges, nodeTypes, edgeTypes, onNodeDragStop, onNodesChange, onEdgesChange, onConnect, onConnectEnd, handleNodeClick }) => {
 
   const { fitView } = useReactFlow();
   const handleZoomOut = () => {
@@ -12,12 +12,6 @@ const FlowCanvas = ({ nodes, edges, nodeTypes, edgeTypes, onNodesChange, onEdges
       duration: 150
     })
   }
-  // const handleZoomIn = () => {
-  //   fitView({
-  //     minZoom: 0.5,
-  //     duration: 150
-  //   })
-  // }
 
   return (
     <ReactFlow className="w-full h-full"
@@ -30,18 +24,14 @@ const FlowCanvas = ({ nodes, edges, nodeTypes, edgeTypes, onNodesChange, onEdges
       onConnect={onConnect}
       onNodeClick={handleNodeClick}
       onConnectEnd={onConnectEnd}
+      onNodeDragStop={onNodeDragStop}
     >
       <div className="zoom-buttons bg-[#0e1b3c] p-2 border border-white rounded-md absolute z-10 top-5 right-2 flex flex-col gap-3">
         <div
           onClick={handleZoomOut}
-          className="zoom-out h-10 w-10 border p-1 border-amber-50 cursor-pointer rounded-md">
+          className="zoom-out h-6 w-6 cursor-pointer">
           <img src={zoomOut} alt="zoom-out" />
         </div>
-        {/* <div
-          onClick={handleZoomIn}
-          className="zoom-in h-10 w-10 border p-1 border-amber-50 cursor-pointer rounded-md">
-          <img src={zoomIn} alt="zoom-out" />
-        </div> */}
 
       </div>
       {/* <Controls position="top-right" showInteractive={false} /> */}

@@ -117,8 +117,8 @@ const Sidebar = ({ onNewFlow, history, setHistory, setNodes, setEdges, activeFlo
             )}
 
             {/* Bottom Section: Accounts */}
-            <div className={`${isOpen ? "p-4 border-t border-zinc-800 bg-zinc-900/30" : "absolute bottom-0 p-4 border-zinc-800 bg-zinc-900/30"}`}>
-                <div className="flex items-center gap-3 mb-4 p-2">
+            <div className={`${isOpen ? "flex items-center justify-between p-4 border-t border-zinc-800 bg-zinc-900/30" : "absolute bottom-0 p-4 border-zinc-800 bg-zinc-900/30"}`}>
+                <div className="flex items-center gap-3 p-2">
                     <div className="w-10 h-10 rounded-full bg-linear-to-br from-pink-500 to-blue-500 flex items-center justify-center font-bold">
                         {user[0]}
                     </div>
