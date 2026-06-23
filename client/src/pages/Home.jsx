@@ -74,7 +74,7 @@ const Home = () => {
     useEffect(() => {
         const fetchActiveFlow = async () => {
             if (token && activeFlowId) {
-                const res = await fetch(`http://localhost:4000/api/flows/${activeFlowId}`, {
+                const res = await fetch(`https://neon-flow.onrender.com/api/flows/${activeFlowId}`, {
                     headers: { 'Authorization': `Bearer ${token}` }
                 });
                 const flow = await res.json();
@@ -113,7 +113,7 @@ const Home = () => {
     useEffect(() => {
         const fetchFlows = async () => {
             try {
-                const res = await fetch('http://localhost:4000/api/flows', {
+                const res = await fetch('https://neon-flow.onrender.com/api/flows', {
                     headers: { 'Authorization': `Bearer ${token}` }
                 });
                 const data = await res.json();
@@ -143,8 +143,8 @@ const Home = () => {
         try {
             const method = activeFlowId ? 'PUT' : 'POST';
             const url = activeFlowId
-                ? `http://localhost:4000/api/flows/${activeFlowId}`
-                : 'http://localhost:4000/api/flows';
+                ? `https://neon-flow.onrender.com/api/flows/${activeFlowId}`
+                : 'https://neon-flow.onrender.com/api/flows';
 
             const res = await fetch(url, {
                 method,

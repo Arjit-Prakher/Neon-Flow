@@ -31,7 +31,7 @@ const Sidebar = ({ onNewFlow, history, setHistory, setNodes, setEdges, activeFlo
         if (!window.confirm("Delete this flow?")) return;
 
         try {
-            const res = await fetch(`http://localhost:4000/api/flows/${flowId}`, {
+            const res = await fetch(`https://neon-flow.onrender.com/api/flows/${flowId}`, {
                 method: 'DELETE',
                 headers: { 'Authorization': `Bearer ${token}` }
             });

@@ -1,6 +1,6 @@
 export async function generateResponse(prompt, history = [], options = {}) {
     try {
-        const res = await fetch("http://localhost:4000/api/generate", {
+        const res = await fetch("https://neon-flow.onrender.com/api/generate", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({ prompt, history, options }),
@@ -21,7 +21,7 @@ export async function generateResponse(prompt, history = [], options = {}) {
 
 export async function generateFlowTitle(query) {
     try {
-        const res = await fetch("http://localhost:4000/api/title", {
+        const res = await fetch("https://neon-flow.onrender.com/api/title", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({ query }),
