@@ -1,6 +1,5 @@
 {
   "dependencies": {
-    "@google/genai": "^2.8.0",
     "@openrouter/sdk": "^0.13.7",
     "bcryptjs": "^3.0.3",
     "cors": "^2.8.6",

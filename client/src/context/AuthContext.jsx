@@ -8,7 +8,6 @@ export const AuthProvider = ({ children }) => {
 
 
     const login = (data) => {
-        // console.log(data);
         localStorage.setItem('token', data.token);
         localStorage.setItem('user', data.user.email);
         setToken(data.token);
@@ -18,10 +17,10 @@ export const AuthProvider = ({ children }) => {
     const logout = () => {
         localStorage.removeItem('token');
         localStorage.removeItem('user');
+        localStorage.removeItem("neonflow.currentDraft");
+        localStorage.removeItem("neonflow.activeFlowId");
         setToken(null);
         setUser(null);
-        localStorage.removeItem(DRAFT_FLOW_STORAGE_KEY);
-        localStorage.removeItem(ACTIVE_FLOW_STORAGE_KEY);
     };
 
     return (

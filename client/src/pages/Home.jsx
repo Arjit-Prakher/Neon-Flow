@@ -52,14 +52,6 @@ const Home = () => {
         });
 
     // Debounced save when nodes/edges/messages change
-    // useEffect(() => {
-    //     if (nodes.length > 0) {
-    //         const timeout = setTimeout(() => {
-    //             saveCurrentFlow();
-    //         }, 500);
-    //         return () => clearTimeout(timeout);
-    //     }
-    // }, [nodes, edges, messages]);
     useEffect(() => {
         if (nodes.length === 0) return;
 
@@ -86,7 +78,7 @@ const Home = () => {
                     headers: { 'Authorization': `Bearer ${token}` }
                 });
                 const flow = await res.json();
-                localStorage.setItem("ACTIVE_FLOW_STORAGE_KEY", flow._id);
+                localStorage.setItem(ACTIVE_FLOW_STORAGE_KEY, flow._id);
                 if (res.ok) {
                     setNodes(flow.nodes);
                     setEdges(flow.edges);
@@ -176,7 +168,7 @@ const Home = () => {
                 });
                 if (!activeFlowId) {
                     setActiveFlowId(savedFlow._id);
-                    localStorage.setItem("ACTIVE_FLOW_STORAGE_KEY", savedFlow._id);
+                    localStorage.setItem(ACTIVE_FLOW_STORAGE_KEY, savedFlow._id);
                 }
                 return savedFlow;
             }
@@ -255,10 +247,7 @@ const Home = () => {
 
         localStorage.removeItem(DRAFT_FLOW_STORAGE_KEY);
         localStorage.removeItem(ACTIVE_FLOW_STORAGE_KEY);
-
-        // Center the initial node immediately so users see it in front
     }
-    // console.log("in home.jsx: ", messages.length)
 
     return (
         <div className='w-full h-screen flex items-stretch overflow-hidden'>
