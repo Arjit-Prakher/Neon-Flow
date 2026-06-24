@@ -6,11 +6,14 @@ const Auth = () => {
   const [isLogin, setIsLogin] = useState(true);
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [loading, setLoading] = useState(false);
   const { login } = useAuth();
   const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setLoading(true);
+
     const endpoint = isLogin ? '/api/auth/login' : '/api/auth/signup';
 
     try {
@@ -35,9 +38,9 @@ const Auth = () => {
       }
     } catch (error) {
       console.error("Auth Error:", error);
+    } finally {
+      setLoading(false);
     }
-    // login("fake-jwt-token");
-    // navigate('/app');
   };
 
   return (
@@ -75,9 +78,27 @@ const Auth = () => {
             onChange={(e) => setPassword(e.target.value)}
             required
           />
-          <button type="submit" className="mt-4 bg-linear-to-r from-pink-600 to-blue-600 p-3 rounded-xl font-bold hover:scale-[1.02] active:scale-95 transition-all">
+          {/* <button type="submit" className="mt-4 bg-linear-to-r from-pink-600 to-blue-600 p-3 rounded-xl font-bold hover:scale-[1.02] active:scale-95 transition-all">
             {isLogin ? 'Login' : 'Sign Up'}
+          </button> */}
+          <button
+            type="submit"
+            disabled={loading}
+            className={`mt-4 p-3 rounded-xl font-bold transition-all ${loading
+                ? 'bg-zinc-700 cursor-not-allowed'
+                : 'bg-linear-to-r from-pink-600 to-blue-600 hover:scale-[1.02] active:scale-95'
+              }`}
+          >
+            {loading ? (
+              <div className="flex items-center justify-center gap-2">
+                <div className="w-4 h-4 border-2 border-t-transparent border-pink-400 rounded-full animate-spin"></div>
+                <span>Loading...</span>
+              </div>
+            ) : (
+              isLogin ? 'Login' : 'Sign Up'
+            )}
           </button>
+
         </form>
 
         <p className="mt-6 text-center text-zinc-500">
